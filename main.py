@@ -1,23 +1,32 @@
 import sys
 import pygame
+from settings import Settings
+from snack import Snack
 
-def run():
-    pygame.init()   # Initialize pygame.
+def main():
+    pygame.init()
 
-    screen_width = 500
-    screen_height = 500
-    bg_color = (255, 255, 255)
+    settings = Settings()
     
-    screen = pygame.display.set_mode((screen_width, screen_height)) # Create a window.
+    screen = pygame.display.set_mode((settings.screen_width, settings.screen_height))
     pygame.display.set_caption("Snake")
 
+    clock = pygame.time.Clock()
+
+    snack = Snack(screen)
+
     while True:
-        for event in pygame.event.get():    # Look for a user action.
+        for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                pygame.quit()
                 sys.exit()
 
-        screen.fill(bg_color)   # Fill the background.
-        
-        pygame.display.flip()   # Update the screen.
+        screen.fill(settings.bg_color)
 
-run()
+        snack.create_snack()
+
+        pygame.display.update()
+
+        clock.tick(60)
+
+main()
