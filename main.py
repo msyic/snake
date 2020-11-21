@@ -2,6 +2,7 @@ import sys
 import pygame
 from settings import Settings
 from snack import Snack
+from snake import Snake
 
 def main():
     pygame.init()
@@ -14,6 +15,7 @@ def main():
     clock = pygame.time.Clock()
 
     snack = Snack(screen)
+    snake = Snake(screen)
 
     while True:
         for event in pygame.event.get():
@@ -24,6 +26,7 @@ def main():
         screen.fill(settings.bg_color)
 
         snack.create_snack()
+        snake.create_snake()
 
         pygame.display.update()
 
