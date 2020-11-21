@@ -20,6 +20,18 @@ def check_collision():
         snack.throw()
         snake.grow()
 
+def check_fail():
+    if (not 0 <= snake.body[0].x < settings.cell_number) or (not 0 <= snake.body[0].y < settings.cell_number):
+        game_over()
+
+    for block in snake.body[1:]:
+        if block == snake.body[0]:
+            game_over()
+
+def game_over():
+    pygame.quit()
+    sys.exit()
+
 
 def main():
 
@@ -36,15 +48,20 @@ def main():
             if event.type == SCREEN_UPDATE:
                 snake.move()
                 check_collision()
+                check_fail()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
-                    snake.direction = Vector2(0, -1)
+                    if snake.direction.y != 1:
+                        snake.direction = Vector2(0, -1)
                 if event.key == pygame.K_DOWN:
-                    snake.direction = Vector2(0, 1)
+                    if snake.direction.y != -1:
+                        snake.direction = Vector2(0, 1)
                 if event.key == pygame.K_LEFT:
-                    snake.direction = Vector2(-1, 0)
+                    if snake.direction.x != 1:
+                        snake.direction = Vector2(-1, 0)
                 if event.key == pygame.K_RIGHT:
-                    snake.direction = Vector2(1, 0)
+                    if snake.direction.x != -1:
+                        snake.direction = Vector2(1, 0)
 
         screen.fill(settings.bg_color)
 
