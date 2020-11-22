@@ -4,11 +4,9 @@ from pygame.math import Vector2
 from settings import Settings
 
 
-settings = Settings()
-
-
 class Snake():
-    def __init__(self, screen):
+    def __init__(self, settings, screen):
+        self.settings = settings
         self.screen = screen
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
         self.direction = Vector2(1, 0)
@@ -16,7 +14,7 @@ class Snake():
 
     def hatch(self):
         for block in self.body:
-            block_rect = pygame.Rect(int(block.x * settings.cell_size), int(block.y * settings.cell_size), settings.cell_size - 2, settings.cell_size - 2)
+            block_rect = pygame.Rect(int(block.x * self.settings.cell_size), int(block.y * self.settings.cell_size), self.settings.cell_size - 2, self.settings.cell_size - 2)
             pygame.draw.rect(self.screen, (0, 255, 0), block_rect)
 
     def move(self):
@@ -35,15 +33,16 @@ class Snake():
 
 
 class Snack():
-    def __init__(self, screen):
+    def __init__(self, settings, screen):
+        self.settings = settings
         self.screen = screen
         self.throw()
 
     def make(self):
-        snack_rect = pygame.Rect(int(self.position.x * settings.cell_size), int(self.position.y * settings.cell_size), settings.cell_size - 2, settings.cell_size - 2)
+        snack_rect = pygame.Rect(int(self.position.x * self.settings.cell_size), int(self.position.y * self.settings.cell_size), self.settings.cell_size - 2, self.settings.cell_size - 2)
         pygame.draw.rect(self.screen, (255, 0, 0), snack_rect)
 
     def throw(self):
-        self.x = random.randint(0, settings.cell_number - 1)
-        self.y = random.randint(0, settings.cell_number - 1)
+        self.x = random.randint(0, self.settings.cell_number - 1)
+        self.y = random.randint(0, self.settings.cell_number - 1)
         self.position = Vector2(self.x, self.y)

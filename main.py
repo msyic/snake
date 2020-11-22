@@ -3,6 +3,7 @@ import pygame
 from pygame.math import Vector2
 from settings import Settings
 from objects import Snake, Snack
+from stats import Score
 
 pygame.init()
 
@@ -11,8 +12,9 @@ settings = Settings()
 screen = pygame.display.set_mode((settings.screen_width, settings.screen_height))
 pygame.display.set_caption("Snake")
 
-snack = Snack(screen)
-snake = Snake(screen)
+snack = Snack(settings, screen)
+snake = Snake(settings, screen)
+score = Score(settings, screen, snake)
 
 
 def check_collision():
@@ -67,6 +69,7 @@ def main():
 
         snack.make()
         snake.hatch()
+        score.draw()
 
         pygame.display.update()
 
