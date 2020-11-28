@@ -22,6 +22,10 @@ def check_collision():
         snack.throw()
         snake.grow()
 
+    for block in snake.body[1:]:
+        if block == snack.position:
+            snack.throw()
+
 def check_fail():
     if (not 0 <= snake.body[0].x < settings.cell_number) or (not 0 <= snake.body[0].y < settings.cell_number):
         game_over()
@@ -35,44 +39,41 @@ def game_over():
     sys.exit()
 
 
-def main():
 
-    clock = pygame.time.Clock()
+clock = pygame.time.Clock()
 
-    SCREEN_UPDATE = pygame.USEREVENT
-    pygame.time.set_timer(SCREEN_UPDATE, 100)
+SCREEN_UPDATE = pygame.USEREVENT
+pygame.time.set_timer(SCREEN_UPDATE, 100)
 
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == SCREEN_UPDATE:
-                snake.move()
-                check_collision()
-                check_fail()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
-                    if snake.direction.y != 1:
-                        snake.direction = Vector2(0, -1)
-                if event.key == pygame.K_DOWN:
-                    if snake.direction.y != -1:
-                        snake.direction = Vector2(0, 1)
-                if event.key == pygame.K_LEFT:
-                    if snake.direction.x != 1:
-                        snake.direction = Vector2(-1, 0)
-                if event.key == pygame.K_RIGHT:
-                    if snake.direction.x != -1:
-                        snake.direction = Vector2(1, 0)
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == SCREEN_UPDATE:
+            snake.move()
+            check_collision()
+            check_fail()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                if snake.direction.y != 1:
+                    snake.direction = Vector2(0, -1)
+            if event.key == pygame.K_DOWN:
+                if snake.direction.y != -1:
+                    snake.direction = Vector2(0, 1)
+            if event.key == pygame.K_LEFT:
+                if snake.direction.x != 1:
+                    snake.direction = Vector2(-1, 0)
+            if event.key == pygame.K_RIGHT:
+                if snake.direction.x != -1:
+                    snake.direction = Vector2(1, 0)
 
-        screen.fill(settings.bg_color)
+    screen.fill(settings.bg_color)
 
-        snack.make()
-        snake.hatch()
-        score.draw()
+    snack.make()
+    snake.hatch()
+    score.draw()
 
-        pygame.display.update()
+    pygame.display.update()
 
-        clock.tick(60)
-
-main()
+    clock.tick(60)
