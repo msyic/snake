@@ -35,8 +35,7 @@ def check_fail():
             game_over()
 
 def game_over():
-    pygame.quit()
-    sys.exit()
+    snake.reset()
 
 
 

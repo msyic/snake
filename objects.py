@@ -9,7 +9,7 @@ class Snake():
         self.settings = settings
         self.screen = screen
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
-        self.direction = Vector2(1, 0)
+        self.direction = Vector2(0, 0)
         self.new_block = False
 
     def hatch(self):
@@ -31,6 +31,9 @@ class Snake():
     def grow(self):
         self.new_block = True
 
+    def reset(self):
+        self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
+        self.direction = Vector2(0, 0)
 
 class Snack():
     def __init__(self, settings, screen):
